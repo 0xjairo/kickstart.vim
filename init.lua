@@ -1,3 +1,9 @@
+if vim.g.neovide then
+  vim.o.guifont = "FiraCode NF:h10" -- text below applies for VimScript
+  vim.g.neovide_cursor_animation_length = 0.05
+  vim.g.neovide_cursor_trail_size = 0.1
+end
+
 --[[
 
 =====================================================================
@@ -72,6 +78,8 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+  'tpope/vim-surround',
+  'tpope/vim-repeat',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
