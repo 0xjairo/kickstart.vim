@@ -101,7 +101,13 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
+  { 'SmiteshP/nvim-navic',
+    opts = {
+      lsp = {
+        auto_attach = true
+      },
+    },
+  },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -155,11 +161,19 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
         theme = 'onedark',
-        component_separators = '|',
         section_separators = '',
       },
+      winbar = {
+        lualine_b = { '%f' },
+        lualine_c = {
+          {
+            'navic',
+            color_correction = nil,
+            navic_opts = nil,
+          }
+        },
+      }
     },
   },
 
