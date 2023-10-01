@@ -146,15 +146,13 @@ require('lazy').setup({
     },
   },
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
-    --"catppuccin/nvim", name = "catppuccin",
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'catppuccin'
     end,
   },
-
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -165,14 +163,14 @@ require('lazy').setup({
         section_separators = '',
       },
       winbar = {
-        lualine_b = { '%f' },
         lualine_c = {
           {
             'navic',
             color_correction = nil,
             navic_opts = nil,
-          }
+          },
         },
+        lualine_y = { '%f' },
       }
     },
   },
