@@ -4,6 +4,19 @@ if vim.g.neovide then
   vim.g.neovide_cursor_trail_size = 0.1
 end
 
+if vim.fn.has("win32") then
+  -- vim.opt.shell="C:/Program Files/PowerShell/7/pwsh.exe"
+  -- vim.opt.shellcmdflag='-command'
+
+  vim.opt.shell = 'powershell.exe'
+  --vim.opt.shell="C:\\\Program Files\\PowerShell\\7\\pwsh.exe"
+  vim.opt.shellquote = ''
+  vim.opt.shellpipe = '|'
+  vim.opt.shellxquote = '|'
+  vim.opt.shellcmdflag='-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command'
+  vim.opt.shellredir='| Out-File -Encoding UTF8'
+end
+
 --[[
 
 =====================================================================
@@ -81,7 +94,16 @@ require('lazy').setup({
   'tpope/vim-surround',
   'tpope/vim-repeat',
 
+  -- Highlight current word
   'RRethy/vim-illuminate',
+
+  -- cmake
+  {
+    'Civitasv/cmake-tools.nvim',
+    opts = {
+      cmake_build_directory = "build/"
+    }
+  },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -111,6 +133,9 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
+    opts = {
+      confirmation = { completeopt = 'menu,menuone,noinsert' }, 
+    },
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
       'L3MON4D3/LuaSnip',
@@ -172,17 +197,6 @@ require('lazy').setup({
         },
         lualine_y = { '%f' },
       }
-    },
-  },
-
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
     },
   },
 
