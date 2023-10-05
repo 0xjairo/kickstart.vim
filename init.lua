@@ -134,7 +134,7 @@ require('lazy').setup({
     -- Autocompletion
     'hrsh7th/nvim-cmp',
     opts = {
-      confirmation = { completeopt = 'menu,menuone,noinsert' }, 
+      confirmation = { completeopt = 'menu,menuone,noinsert' },
     },
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
@@ -346,6 +346,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
+---@diagnostic disable-next-line: missing-fields
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
@@ -479,6 +480,7 @@ local servers = {
 
   lua_ls = {
     Lua = {
+      completion = { callSnippet = "Replace" },
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
@@ -517,6 +519,7 @@ local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
+---@diagnostic disable-next-line: missing-fields
 cmp.setup {
   snippet = {
     expand = function(args)
