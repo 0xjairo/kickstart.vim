@@ -156,17 +156,40 @@ require('lazy').setup({
     'lewis6991/gitsigns.nvim',
     opts = {
       -- See `:help gitsigns.txt`
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
+      current_line_blame = true,
+      current_line_blame_opts = {
+        delay = 250,
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+        local gs = package.loaded.gitsigns
+
+       -- Actions
+        vim.keymap.set('n', '<leader>hs', gs.stage_hunk, {buffer = bufnr, desc='Stage hunk'})
+        vim.keymap.set('n', '<leader>hr', gs.reset_hunk, {buffer = bufnr, desc='Reset hunk'})
+        vim.keymap.set('v', '<leader>hs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, {buffer = bufnr, desc='Stage selected lines'})
+        vim.keymap.set('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, {buffer = bufnr, desc='Reset selected lines'})
+        vim.keymap.set('n', '<leader>hS', gs.stage_buffer, {buffer = bufnr, desc='Stage buffer'})
+        vim.keymap.set('n', '<leader>hu', gs.undo_stage_hunk, {buffer = bufnr, desc='Undo stage hunk'})
+        vim.keymap.set('n', '<leader>hR', gs.reset_buffer, {buffer = bufnr, desc='Reset buffer'})
+        vim.keymap.set('n', '<leader>hp', gs.preview_hunk, {buffer = bufnr, desc='Preview hunk'})
+        vim.keymap.set('n', '<leader>hb', function() gs.blame_line{full=true} end, {buffer = bufnr, desc='Blame line (full)'})
+        vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame, {buffer = bufnr, desc='Toggle line blame'})
+        vim.keymap.set('n', '<leader>hd', gs.diffthis, {buffer = bufnr, desc='Diff this file'})
+        vim.keymap.set('n', '<leader>hD', function() gs.diffthis('~') end, {buffer = bufnr, desc='Diff this ~'})
+        vim.keymap.set('n', '<leader>td', gs.toggle_deleted, {buffer = bufnr, desc='Toggle show deleted lines'})
+
+        -- Navigation
+        vim.keymap.set('n', ']c', function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(function() gs.next_hunk() end)
+          return '<Ignore>'
+        end, {expr=true, desc='Go to next hunk'})
+
+        vim.keymap.set('n', '[c', function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(function() gs.prev_hunk() end)
+          return '<Ignore>'
+        end, {expr=true, desc='Got to previous hunk'})
       end,
     },
   },
