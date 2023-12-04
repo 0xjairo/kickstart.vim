@@ -4,17 +4,29 @@ if vim.g.neovide then
   vim.g.neovide_cursor_trail_size = 0.1
 end
 
-if vim.fn.has("win32") then
-  -- vim.opt.shell="C:/Program Files/PowerShell/7/pwsh.exe"
-  -- vim.opt.shellcmdflag='-command'
+if vim.fn.has("win32") == 1 then
+  --vim.opt.shell='"C:/Program Files/Powershell/7/pwsh.exe"'
 
-  vim.opt.shell = 'powershell.exe'
-  --vim.opt.shell="C:\\\Program Files\\PowerShell\\7\\pwsh.exe"
-  vim.opt.shellquote = ''
+  -- replace "\" with "/" in windows path
+  -- local pwsh = vim.fn.shellescape(vim.env.ProgramFiles .. '/Powershell/7/pwsh.exe')
+
+  local prog_files = string.gsub(vim.env.ProgramFiles, "\\", "/")
+  local pwsh = '"' .. prog_files .. '/Powershell/7/pwsh.exe' .. '"'
+  --vim.opt.shell = '"' .. prog_files .. '/Powershell/7/pwsh.exe' .. '"'
+  vim.opt.shell = pwsh
+  vim.opt.shellquote = '"'
   vim.opt.shellpipe = '|'
   vim.opt.shellxquote = '|'
   vim.opt.shellcmdflag='-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command'
+  --vim.opt.shellcmdflag='-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues["Out-File:Encoding"]="utf8"'
   vim.opt.shellredir='| Out-File -Encoding UTF8'
+
+ 	-- let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
+	-- let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
+	-- let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+	-- let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+	-- set shellquote= shellxquote=
+
 end
 
 --[[
@@ -203,9 +215,9 @@ require('lazy').setup({
     opts = {
       options = {
         theme = 'onedark',
-        section_separators = '',
+        -- section_separators = '',
       },
-      winbar = {
+      sections = {
         lualine_c = {
           {
             'navic',
@@ -213,21 +225,12 @@ require('lazy').setup({
             navic_opts = nil,
           },
         },
-        lualine_y = { '%f' },
+        lualine_x = { '%f', 'encoding', 'fileformat', 'filetype' },
       }
     },
   },
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
-  },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
 
   {
     -- Add indentation guides even on blank lines
@@ -275,7 +278,7 @@ require('lazy').setup({
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
   -- require 'kickstart.plugins.autoformat',
-  -- require 'kickstart.plugins.debug',
+  require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
@@ -425,6 +428,7 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[S]earch [C]commands' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
