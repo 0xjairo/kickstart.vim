@@ -22,6 +22,7 @@ return {
     'leoluz/nvim-dap-go',
     'jedrzejboczar/nvim-dap-cortex-debug',
     'mfussenegger/nvim-dap-python',
+    'Marus/cortex-debug',
   },
   config = function()
     local dap = require 'dap'
@@ -46,14 +47,36 @@ return {
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set('n', 'tc', dap.continue, { desc = 'Debug: Start/Continue' })
-    vim.keymap.set('n', 'tl', dap.step_into, { desc = 'Debug: Step Into' })
-    vim.keymap.set('n', 'tj', dap.step_over, { desc = 'Debug: Step Over' })
-    vim.keymap.set('n', 'tk', dap.step_out, { desc = 'Debug: Step Out' })
-    vim.keymap.set('n', 'tb', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
-    vim.keymap.set('n', 'tB', function()
+    vim.keymap.set('n', '<leader>dc', dap.continue, { desc = 'Debug: Start/Continue' })
+    vim.keymap.set('n', '<leader>dd', dap.step_over, { desc = 'Debug: Step Over' })
+    vim.keymap.set('n', '<leader>dj', dap.step_into, { desc = 'Debug: Step Into' })
+    vim.keymap.set('n', '<leader>dk', dap.step_out, { desc = 'Debug: Step Out' })
+    vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+    vim.keymap.set('n', '<leader>dB', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
+
+    vim.keymap.set('n', '<Leader>dr', function()
+      require('dap').repl.open()
+    end, { desc = 'Debug: Open REPL'})
+
+    vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+      require('dap.ui.widgets').hover()
+    end, { desc = 'Debug: UI Widget Hover' })
+
+    vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+      require('dap.ui.widgets').preview()
+    end, { desc = 'Debug: UI Widget Preview' })
+
+    vim.keymap.set('n', '<Leader>df', function()
+      local widgets = require('dap.ui.widgets')
+      widgets.centered_float(widgets.frames)
+    end, { desc = 'Debug: Frames Centered Float' })
+
+    vim.keymap.set('n', '<Leader>ds', function()
+      local widgets = require('dap.ui.widgets')
+      widgets.centered_float(widgets.scopes)
+    end, { desc = 'Debug: Scopes Centered Float' })
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
