@@ -255,13 +255,8 @@ require('lazy').setup({
       },
       sections = {
         lualine_c = {
-          {
-            'navic',
-            color_correction = nil,
-            navic_opts = nil,
-          },
-        },
-        lualine_x = { '%f', 'encoding', 'fileformat', 'filetype' },
+          'filename',{ 'navic', color_correction = nil, navic_opts = nil, }
+        }
       }
     },
   },
