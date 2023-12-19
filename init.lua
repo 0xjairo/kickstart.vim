@@ -377,6 +377,10 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+vim.keymap.set('n', '<leader>b', '<CMD>CMakeBuild <CR>', { desc = 'CMake Build' })
+
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -386,6 +390,27 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = highlight_group,
   pattern = '*',
+})
+
+local term_group = vim.api.nvim_create_augroup('terminal', { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  command = "startinsert",
+  group = term_group,
+  pattern = 'term://*',
+})
+
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+  group = term_group,
+  pattern = 'term://*',
+  callback = function()
+    vim.cmd('startinsert')
+    vim.keymap.set('t', '<c-e>', [[<c-\><c-n><cmd>e#<cr>]], { buffer = 0, desc = "go from t[E]rminal to previous buffer" })
+    vim.keymap.set('t', '<C-w>h',[[<C-\><C-n><C-w>h]], { buffer = 0 })
+    vim.keymap.set('t', '<C-w>j',[[<C-\><C-n><C-w>j]], { buffer = 0 })
+    vim.keymap.set('t', '<C-w>k',[[<C-\><C-n><C-w>k]], { buffer = 0 })
+    vim.keymap.set('t', '<C-w>l',[[<C-\><C-n><C-w>l]], { buffer = 0 })
+  end
+
 })
 
 -- [[ Configure Telescope ]]
