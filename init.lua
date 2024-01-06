@@ -109,21 +109,22 @@ require('lazy').setup({
   'tpope/vim-repeat',
 
   -- Highlight current word
-  'RRethy/vim-illuminate',
+  { 'RRethy/vim-illuminate', lazy = true },
 
   -- cmake
   {
     'Civitasv/cmake-tools.nvim',
     opts = {
       cmake_build_directory = "build/"
-    }
+    },
+    lazy = true,
   },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
+    'neovim/nvim-lspconfig', lazy = true,
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
@@ -146,7 +147,8 @@ require('lazy').setup({
   },
   {
     -- Autocompletion
-    'hrsh7th/nvim-cmp',
+    'hrsh7th/nvim-cmp'
+    event =  "InsertEnter",
     opts = {
       confirmation = { completeopt = 'menu,menuone,noinsert' },
     },
@@ -164,7 +166,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim', opts = {} , lazy = true},
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -253,7 +255,7 @@ require('lazy').setup({
     },
   },
 
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, lazy = true },
 
   {
     -- Add indentation guides even on blank lines
@@ -290,7 +292,7 @@ require('lazy').setup({
 
   {
     -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
+    'nvim-treesitter/nvim-treesitter', lazy = true,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
