@@ -5,27 +5,29 @@ if vim.g.neovide then
 end
 
 if vim.fn.has("win32") == 1 then
-  --vim.opt.shell='"C:/Program Files/Powershell/7/pwsh.exe"'
-
-  -- replace "\" with "/" in windows path
-  -- local pwsh = vim.fn.shellescape(vim.env.ProgramFiles .. '/Powershell/7/pwsh.exe')
 
   local prog_files = string.gsub(vim.env.ProgramFiles, "\\", "/")
-  local pwsh = '"' .. prog_files .. '/Powershell/7/pwsh.exe' .. '"'
-  --vim.opt.shell = '"' .. prog_files .. '/Powershell/7/pwsh.exe' .. '"'
-  vim.opt.shell = pwsh
-  vim.opt.shellquote = '"'
-  vim.opt.shellpipe = '|'
-  vim.opt.shellxquote = '|'
-  vim.opt.shellcmdflag='-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command'
-  --vim.opt.shellcmdflag='-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues["Out-File:Encoding"]="utf8"'
-  vim.opt.shellredir='| Out-File -Encoding UTF8'
+  local pwsh7 = '"' .. prog_files .. '/Powershell/7/pwsh.exe' .. '"'
 
- 	-- let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
-	-- let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
-	-- let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-	-- let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
-	-- set shellquote= shellxquote=
+  local windir = string.gsub(vim.env.WinDir, "\\", "/")
+  local pwsh_sys = '"' .. windir .. '/System32/WindowsPowerShell/v1.0/powershell.exe' .. '"'
+
+  function set_pwsh_opts()
+    vim.opt.shellquote = '"'
+    vim.opt.shellpipe = '|'
+    vim.opt.shellxquote = '|'
+    vim.opt.shellcmdflag='-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command'
+    --vim.opt.shellcmdflag='-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues["Out-File:Encoding"]="utf8"'
+    vim.opt.shellredir='| Out-File -Encoding UTF8'
+  end
+
+  if vim.fn.filereadable(pwsh7) == 1 then
+    vim.opt.shell = pwsh7
+    set_pwsh_opts()
+  elseif vim.fn.filereadable(pwsh_sys) then
+    vim.opt.shell = pwsh_sys
+    set_pwsh_opts()
+  end
 
 end
 
