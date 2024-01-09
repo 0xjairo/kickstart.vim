@@ -33,7 +33,18 @@ return {
         },
       },
     }
-  }
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = function()
+      require('toggleterm').setup({})
+      vim.keymap.set('n', '<Leader>T', '<cmd>ToggleTerm<cr>', { desc = 'ToggleTerm' } )
+      vim.keymap.set('t', '<Esc><Esc>', '<cmd>ToggleTerm<cr>', { desc = 'ToggleTerm' } )
+      return true
+    end
+  },
+
 }
 
 -- vim: ts=2 sts=2 sw=2 et
