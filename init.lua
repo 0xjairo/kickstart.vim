@@ -311,7 +311,6 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -387,6 +386,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', '<leader>b', '<CMD>CMakeBuild <CR>', { desc = 'CMake Build' })
 vim.keymap.set('n', '<leader>~', '<cmd>cd %:h<cr>', { desc = 'Change working directory to current file' })
 
+-- Escape in terminal sends escape sequence
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 -- [[ Highlight on yank ]]
