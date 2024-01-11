@@ -7,12 +7,12 @@ end
 if vim.fn.has("win32") == 1 then
 
   local prog_files = string.gsub(vim.env.ProgramFiles, "\\", "/")
-  local pwsh7 = '"' .. prog_files .. '/Powershell/7/pwsh.exe' .. '"'
+  local pwsh7 = prog_files .. '/Powershell/7/pwsh.exe'
 
   local windir = string.gsub(vim.env.WinDir, "\\", "/")
-  local pwsh_sys = '"' .. windir .. '/System32/WindowsPowerShell/v1.0/powershell.exe' .. '"'
+  local pwsh_sys = windir .. '/System32/WindowsPowerShell/v1.0/powershell.exe'
 
-  function set_pwsh_opts()
+  local function set_pwsh_opts()
     vim.opt.shellquote = '"'
     vim.opt.shellpipe = '|'
     vim.opt.shellxquote = '|'
@@ -22,10 +22,10 @@ if vim.fn.has("win32") == 1 then
   end
 
   if vim.fn.filereadable(pwsh7) == 1 then
-    vim.opt.shell = pwsh7
+    vim.opt.shell = '"' .. pwsh7 .. '"'
     set_pwsh_opts()
-  elseif vim.fn.filereadable(pwsh_sys) then
-    vim.opt.shell = pwsh_sys
+  elseif vim.fn.filereadable(pwsh_sys) == 1 then
+    vim.opt.shell = '"' .. pwsh_sys .. '"'
     set_pwsh_opts()
   end
 
