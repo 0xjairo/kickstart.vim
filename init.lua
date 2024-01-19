@@ -5,6 +5,14 @@ if vim.g.neovide then
 end
 
 if vim.fn.has("win32") == 1 then
+  --
+  local function set_pwsh_opts()
+		vim.opt.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[\'Out-File:Encoding\']=\'utf8\';'
+    vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+    vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+    vim.opt.shellquote = "\""
+    vim.opt.shellxquote = ""
+  end
 
   local prog_files = string.gsub(vim.env.ProgramFiles, "\\", "/")
   local pwsh7 = prog_files .. '/Powershell/7/pwsh.exe'
@@ -12,20 +20,11 @@ if vim.fn.has("win32") == 1 then
   local windir = string.gsub(vim.env.WinDir, "\\", "/")
   local pwsh_sys = windir .. '/System32/WindowsPowerShell/v1.0/powershell.exe'
 
-  local function set_pwsh_opts()
-    vim.opt.shellquote = '"'
-    vim.opt.shellpipe = '|'
-    vim.opt.shellxquote = '|'
-    vim.opt.shellcmdflag='-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command'
-    --vim.opt.shellcmdflag='-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues["Out-File:Encoding"]="utf8"'
-    vim.opt.shellredir='| Out-File -Encoding UTF8'
-  end
-
   if vim.fn.filereadable(pwsh7) == 1 then
-    vim.opt.shell = '"' .. pwsh7 .. '"'
+    vim.opt.shell = 'pwsh'
     set_pwsh_opts()
   elseif vim.fn.filereadable(pwsh_sys) == 1 then
-    vim.opt.shell = '"' .. pwsh_sys .. '"'
+    vim.opt.shell = 'powershell'
     set_pwsh_opts()
   end
 
