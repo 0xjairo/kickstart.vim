@@ -349,6 +349,9 @@ vim.keymap.set('n', '<leader>~', '<cmd>cd %:h<cr>', { desc = 'Change working dir
 -- Escape in terminal sends escape sequence
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
+-- bypass :wq to prevent erroneous exits. Use :x instead
+vim.cmd.cnoreabbrev('wq <nop>')
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
