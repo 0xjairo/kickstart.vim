@@ -384,6 +384,13 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 
 })
 
+local ext_syntax_group = vim.api.nvim_create_augroup('ext_syntax', { clear = true })
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  group = ext_syntax_group,
+  pattern = '*.launch',
+  command = 'set filetype=xml'
+})
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
