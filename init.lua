@@ -285,7 +285,7 @@ require('lazy').setup({
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -474,6 +474,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[S]earch [C]commands' })
 
 vim.keymap.set('n', '<leader><tab>', '<cmd>b#<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>l', '<cmd>set hlsearch!<CR>', { desc = 'Toggle high[l]ight search' })
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
