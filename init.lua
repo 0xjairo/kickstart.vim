@@ -342,7 +342,13 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics location-list' })
+
+-- navigate quickfix and location list
+vim.keymap.set('n', '[q', '<cmd>cprev<CR>', { desc = 'Previous [q]uickfix item' })
+vim.keymap.set('n', ']q', '<cmd>cnext<CR>', { desc = 'Next [q]uickfix item' })
+vim.keymap.set('n', '[l', '<cmd>lprev<CR>', { desc = 'Previous [l]ocation-list item' })
+vim.keymap.set('n', ']l', '<cmd>lnext<CR>', { desc = 'Next [l]ocation-list item' })
 
 vim.keymap.set('n', '<leader>b', '<CMD>CMakeBuild <CR>', { desc = 'CMake Build' })
 vim.keymap.set('n', '<leader>~', '<cmd>cd %:h<cr>', { desc = 'Change working directory to current file' })
