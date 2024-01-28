@@ -11,7 +11,7 @@ return {
           return vim.o.columns * 0.4
         end
       end,
-      open_mapping = "<leader>tt",
+      open_mapping = [[<c-\>]],
       direction = "horizontal",
       hide_numbers = true,
       insert_mappings = false,
