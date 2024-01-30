@@ -350,7 +350,6 @@ vim.keymap.set('n', ']q', '<cmd>cnext<CR>', { desc = 'Next [q]uickfix item' })
 vim.keymap.set('n', '[l', '<cmd>lprev<CR>', { desc = 'Previous [l]ocation-list item' })
 vim.keymap.set('n', ']l', '<cmd>lnext<CR>', { desc = 'Next [l]ocation-list item' })
 
-vim.keymap.set('n', '<leader>b', '<CMD>CMakeBuild <CR>', { desc = 'CMake Build' })
 vim.keymap.set('n', '<leader>~', '<cmd>cd %:h<cr>', { desc = 'Change working directory to current file' })
 
 -- Escape in terminal sends escape sequence
