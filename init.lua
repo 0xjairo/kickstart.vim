@@ -328,6 +328,8 @@ vim.o.expandtab = true
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
+vim.o.exrc = true
+
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
