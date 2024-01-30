@@ -16,7 +16,7 @@ return {
       direction = "horizontal",
       hide_numbers = true,
       insert_mappings = false,
-      terminal_mappings = false,
+      terminal_mappings = true,
       close_on_exit = false,
       start_in_insert = true,
     })
