@@ -213,7 +213,7 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        theme = 'onedark',
+        theme = 'tokyonight',
         -- section_separators = '',
       },
       sections = {
@@ -570,6 +570,8 @@ require('which-key').register({
   ['<leader>'] = { name = 'VISUAL <leader>' },
   ['<leader>h'] = { 'Git [H]unk' },
 }, { mode = 'v' })
+
+vim.cmd.colorscheme('tokyonight')
 
 
 -- The line beneath this is called `modeline`. See `:help modeline`
