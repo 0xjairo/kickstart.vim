@@ -231,6 +231,7 @@ require('lazy').setup({
     -- See `:help ibl`
     main = 'ibl',
     opts = {},
+    event = { "BufReadPost", "BufNewFile" },
   },
 
   -- "gc" to comment visual regions/lines
