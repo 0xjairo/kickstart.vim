@@ -362,6 +362,11 @@ vim.keymap.set('n', '<leader>~', '<cmd>cd %:h<cr>', { desc = 'Change working dir
 -- Escape in terminal sends escape sequence
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
+vim.keymap.set('n', '<A-j>', '<C-w>j')
+vim.keymap.set('n', '<A-k>', '<C-w>k')
+vim.keymap.set('n', '<A-h>', '<C-w>h')
+vim.keymap.set('n', '<A-l>', '<C-w>l')
+
 -- bypass :wq to prevent erroneous exits. Use :x instead
 vim.cmd.cnoreabbrev('wq <nop>')
 
