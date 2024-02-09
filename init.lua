@@ -118,7 +118,7 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  'tpope/vim-surround',
+  'kylechui/nvim-surround',
   'tpope/vim-repeat',
 
   -- Highlight current word
