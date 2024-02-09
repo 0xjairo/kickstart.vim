@@ -394,11 +394,10 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
   pattern = 'term://*',
   callback = function()
     vim.cmd('startinsert')
-    vim.keymap.set('t', '<c-e>', [[<c-\><c-n><cmd>e#<cr>]], { buffer = 0, desc = "go from t[E]rminal to previous buffer" })
-    vim.keymap.set('t', '<C-w>h',[[<C-\><C-n><C-w>h]], { buffer = 0 })
-    vim.keymap.set('t', '<C-w>j',[[<C-\><C-n><C-w>j]], { buffer = 0 })
-    vim.keymap.set('t', '<C-w>k',[[<C-\><C-n><C-w>k]], { buffer = 0 })
-    vim.keymap.set('t', '<C-w>l',[[<C-\><C-n><C-w>l]], { buffer = 0 })
+    vim.keymap.set('t', '<a-h>',[[<C-\><C-n><C-w>h]], { buffer = 0 })
+    vim.keymap.set('t', '<a-j>',[[<C-\><C-n><C-w>j]], { buffer = 0 })
+    vim.keymap.set('t', '<a-k>',[[<C-\><C-n><C-w>k]], { buffer = 0 })
+    vim.keymap.set('t', '<a-l>',[[<C-\><C-n><C-w>l]], { buffer = 0 })
   end
 
 })
