@@ -330,6 +330,7 @@ vim.o.expandtab = true
 vim.o.termguicolors = true
 
 vim.o.exrc = true
+vim.o.textwidth = 120
 
 -- [[ Basic Keymaps ]]
 
