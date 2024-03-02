@@ -362,11 +362,6 @@ vim.keymap.set('n', '<leader>~', '<cmd>cd %:h<cr>', { desc = 'Change working dir
 -- Escape in terminal sends escape sequence
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
-vim.keymap.set('n', '<A-j>', '<C-w>j')
-vim.keymap.set('n', '<A-k>', '<C-w>k')
-vim.keymap.set('n', '<A-h>', '<C-w>h')
-vim.keymap.set('n', '<A-l>', '<C-w>l')
-
 -- bypass :wq to prevent erroneous exits. Use :x instead
 vim.cmd.cnoreabbrev('wq <nop>')
 
@@ -388,15 +383,20 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = 'term://*',
 })
 
+vim.keymap.set('n', '<A-w>j', '<C-w>j', { desc = 'Focus the window below' })
+vim.keymap.set('n', '<A-w>k', '<C-w>k', { desc = 'Focus the window above' })
+vim.keymap.set('n', '<A-w>h', '<C-w>h', { desc = 'Focus the window to the left' })
+vim.keymap.set('n', '<A-w>l', '<C-w>l', { desc = 'Focus the window to the right' })
+
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
   group = term_group,
   pattern = 'term://*',
   callback = function()
     vim.cmd('startinsert')
-    vim.keymap.set('t', '<a-h>',[[<C-\><C-n><C-w>h]], { buffer = 0 })
-    vim.keymap.set('t', '<a-j>',[[<C-\><C-n><C-w>j]], { buffer = 0 })
-    vim.keymap.set('t', '<a-k>',[[<C-\><C-n><C-w>k]], { buffer = 0 })
-    vim.keymap.set('t', '<a-l>',[[<C-\><C-n><C-w>l]], { buffer = 0 })
+    vim.keymap.set('t', '<a-w>h',[[<C-\><C-n><C-w>h]], { buffer = 0 })
+    vim.keymap.set('t', '<a-w>j',[[<C-\><C-n><C-w>j]], { buffer = 0 })
+    vim.keymap.set('t', '<a-w>k',[[<C-\><C-n><C-w>k]], { buffer = 0 })
+    vim.keymap.set('t', '<a-w>l',[[<C-\><C-n><C-w>l]], { buffer = 0 })
   end
 
 })
@@ -573,6 +573,7 @@ require('which-key').register {
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+  ['<a-w>'] = { name = '[W]indow', _ = 'which_key_ignore' },
 }
 -- register which-key VISUAL mode
 -- required for visual <leader>hs (hunk stage) to work
