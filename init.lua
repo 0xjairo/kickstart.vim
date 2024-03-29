@@ -143,8 +143,6 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 --
--- Set highlight on search
-vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.opt.number = true
@@ -250,7 +248,6 @@ vim.keymap.set('n', '<leader>~', '<cmd>cd %:h<cr>', { desc = 'Change working dir
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 vim.keymap.set('n', '<leader><tab>', '<cmd>b#<CR>', { desc = 'Previous buffer' })
-vim.keymap.set('n', '<leader>l', '<cmd>set hlsearch!<CR>', { desc = 'Toggle high[l]ight search' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
