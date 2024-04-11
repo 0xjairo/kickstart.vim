@@ -256,6 +256,15 @@ vim.keymap.set('n', '<leader><tab>', '<cmd>b#<CR>', { desc = 'Previous buffer' }
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+vim.keymap.set('n', '<leader>f', function()
+  if not vim.g.disable_autoformat then
+    print 'Formatting disabled'
+    vim.g.disable_autoformat = true
+  else
+    print 'Formatting enabled'
+    vim.g.disable_autoformat = false
+  end
+end, { desc = 'Toggle format' })
 
 -- bypass :wq to prevent erroneous exits. Use :x instead
 vim.cmd.cnoreabbrev 'wq <nop>'
@@ -752,49 +761,56 @@ require('lazy').setup({
   { -- Autoformat
     'stevearc/conform.nvim',
     config = function()
-      require('conform').setup({
+      ---@diagnostic disable-next-line: inject-field
+      vim.b.disable_autoformat = true
+      vim.g.disable_autoformat = true
+      require('conform').setup {
         format_on_save = function(bufnr)
           if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
             return
           end
           return {
-            notify_on_error = false,
-            format_on_save = {
-              timeout_ms = 500,
-              lsp_fallback = true,
-            },
-            formatters_by_ft = {
-              lua = { 'stylua' },
-              -- Conform can also run multiple formatters sequentially
-              -- python = { "isort", "black" },
-              --
-              -- You can use a sub-list to tell conform to run *until* a formatter
-              -- is found.
-              -- javascript = { { "prettierd", "prettier" } },
-            },
+            timeout_ms = 500,
+            lsp_fallback = true,
           }
         end,
-      })
+        formatters_by_ft = {
+          lua = { 'stylua' },
+          rust = { 'rustfmt' },
+          -- Conform can also run multiple formatters sequentially
+          python = { 'ruff_format' },
+          --
+          -- You can use a sub-list to tell conform to run *until* a formatter
+          -- is found.
+          -- javascript = { { "prettierd", "prettier" } },
+        },
+      }
 
-      vim.api.nvim_create_user_command("FormatDisable", function(args)
+      vim.api.nvim_create_user_command('FormatDisable', function(args)
         if args.bang then
           -- FormatDisable! will disable formatting just for this buffer
+          ---@diagnostic disable-next-line: inject-field
           vim.b.disable_autoformat = true
         else
           vim.g.disable_autoformat = true
         end
       end, {
-        desc = "Disable autoformat-on-save",
+        desc = 'Disable autoformat-on-save',
         bang = true,
       })
-      vim.api.nvim_create_user_command("FormatEnable", function()
+      vim.api.nvim_create_user_command('FormatEnable', function()
+        ---@diagnostic disable-next-line: inject-field
         vim.b.disable_autoformat = false
         vim.g.disable_autoformat = false
       end, {
-        desc = "Re-enable autoformat-on-save",
+        desc = 'Re-enable autoformat-on-save',
       })
-
-      
+      vim.api.nvim_create_user_command('FormatToggle', function()
+        ---@diagnostic disable-next-line: inject-field
+        vim.g.disable_autoformat = not vim.g.disable_autoformat
+      end, {
+        desc = 'Toggle global formatting setting',
+      })
     end,
   },
 
