@@ -8,7 +8,11 @@
 
 return {
   -- NOTE: Yes, you can install new plugins here!
-  'mfussenegger/nvim-dap', lazy = true,
+  'mfussenegger/nvim-dap',
+  lazy = true,
+  keys = {
+    { "<leader>dc", nil, desc = 'Debug: Start/Continue'},
+  },
   -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI
@@ -112,6 +116,6 @@ return {
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
     require('dap-go').setup()
-    require('dap-python').setup('python')
+    require('dap-python').setup('python3')
   end,
 }

@@ -195,7 +195,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
-vim.opt.cursorline = true
+vim.opt.cursorline = false
 
 -- ts=2 sts=2 sw=2 et
 vim.opt.tabstop = 2
@@ -207,7 +207,6 @@ vim.opt.expandtab = true
 vim.opt.termguicolors = true
 
 vim.opt.exrc = true
-vim.opt.textwidth = 120
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 3
@@ -220,8 +219,6 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', ']e', function()
   vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
 end, { desc = 'Go to next error' })
@@ -257,12 +254,11 @@ vim.keymap.set('n', '<leader><tab>', '<cmd>b#<CR>', { desc = 'Previous buffer' }
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('n', '<leader>f', function()
-  if not vim.g.disable_autoformat then
+  vim.g.disable_autoformat = not vim.g.disable_autoformat
+  if vim.g.disable_autoformat then
     print 'Formatting disabled'
-    vim.g.disable_autoformat = true
   else
     print 'Formatting enabled'
-    vim.g.disable_autoformat = false
   end
 end, { desc = 'Toggle format' })
 
@@ -338,9 +334,6 @@ require('lazy').setup({
   --
   --  This is equivalent to:
   --    require('Comment').setup({})
-
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -764,11 +757,10 @@ require('lazy').setup({
     'stevearc/conform.nvim',
     config = function()
       ---@diagnostic disable-next-line: inject-field
-      vim.b.disable_autoformat = true
       vim.g.disable_autoformat = true
       require('conform').setup {
         format_on_save = function(bufnr)
-          if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          if vim.g.disable_autoformat then
             return
           end
           return {
@@ -789,20 +781,12 @@ require('lazy').setup({
       }
 
       vim.api.nvim_create_user_command('FormatDisable', function(args)
-        if args.bang then
-          -- FormatDisable! will disable formatting just for this buffer
-          ---@diagnostic disable-next-line: inject-field
-          vim.b.disable_autoformat = true
-        else
-          vim.g.disable_autoformat = true
-        end
+        vim.g.disable_autoformat = true
       end, {
         desc = 'Disable autoformat-on-save',
         bang = true,
       })
-      vim.api.nvim_create_user_command('FormatEnable', function()
-        ---@diagnostic disable-next-line: inject-field
-        vim.b.disable_autoformat = false
+      vim.api.nvim_create_user_command('FormatEnable', function(args)
         vim.g.disable_autoformat = false
       end, {
         desc = 'Re-enable autoformat-on-save',
@@ -923,26 +907,8 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
-
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
-    end,
-  },
-
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true } },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -981,6 +947,10 @@ require('lazy').setup({
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+  {
+    -- configuration language (as in yaml or  xml) 
+    'imsnif/kdl.vim',
+  },
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
@@ -1000,7 +970,7 @@ require('lazy').setup({
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = true, disable = { 'ruby', 'python' } },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`

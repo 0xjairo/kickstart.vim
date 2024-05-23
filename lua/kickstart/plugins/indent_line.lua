@@ -4,6 +4,9 @@ return {
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
-    opts = {},
+    opts = { scope = {
+      show_start = false, -- if true, underlines the first line
+      show_end = false, -- if true, underlines the last line
+    }},
   },
 }
