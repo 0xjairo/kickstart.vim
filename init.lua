@@ -253,14 +253,6 @@ vim.keymap.set('n', '<leader><tab>', '<cmd>b#<CR>', { desc = 'Previous buffer' }
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-vim.keymap.set('n', '<leader>f', function()
-  vim.g.disable_autoformat = not vim.g.disable_autoformat
-  if vim.g.disable_autoformat then
-    print 'Formatting disabled'
-  else
-    print 'Formatting enabled'
-  end
-end, { desc = 'Toggle format' })
 
 -- bypass :wq to prevent erroneous exits. Use :x instead
 vim.cmd.cnoreabbrev 'wq <nop>'
@@ -690,9 +682,16 @@ require('lazy').setup({
       vim.api.nvim_create_user_command('FormatToggle', function()
         ---@diagnostic disable-next-line: inject-field
         vim.g.disable_autoformat = not vim.g.disable_autoformat
+        if vim.g.disable_autoformat then
+          print 'Formatting disabled'
+        else
+          print 'Formatting enabled'
+        end
       end, {
         desc = 'Toggle global formatting setting',
       })
+
+      vim.keymap.set('n', '<leader>f', '<cmd>:FormatToggle<cr>', { desc = 'Toggle format' })
     end,
   },
 
