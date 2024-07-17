@@ -562,6 +562,7 @@ require('lazy').setup({
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'bash-lsp/bash-language-server',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -705,6 +706,7 @@ require('lazy').setup({
         ruff_lsp = {}, -- Python
         pyright = {}, -- Python
         rust_analyzer = {}, -- rust
+        bashls = {}, -- bash
 
         lua_ls = {
           -- cmd = {...},
