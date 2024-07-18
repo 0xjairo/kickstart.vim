@@ -603,6 +603,9 @@ require('lazy').setup({
               completion = {
                 callSnippet = 'Replace',
               },
+              workspace = {
+                checkThirdParty = 'Disable',
+              },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
             },
@@ -661,6 +664,7 @@ require('lazy').setup({
           rust = { 'rustfmt' },
           -- Conform can also run multiple formatters sequentially
           python = { 'ruff_format' },
+          json = { 'jq' },
           --
           -- You can use a sub-list to tell conform to run *until* a formatter
           -- is found.
@@ -843,7 +847,7 @@ require('lazy').setup({
     end,
   },
   {
-    -- configuration language (as in yaml or  xml) 
+    -- configuration language (as in yaml or  xml)
     'imsnif/kdl.vim',
   },
   { -- Highlight, edit, and navigate code
