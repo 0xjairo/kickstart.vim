@@ -6,4 +6,7 @@ return {
     'sindrets/diffview.nvim', -- optional - Diff integration
   },
   config = true,
+  keys = {
+    { '<leader>gg', ':Neogit<cr>', desc = 'Neogit' },
+  },
 }
