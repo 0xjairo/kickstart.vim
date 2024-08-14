@@ -426,7 +426,13 @@ require('lazy').setup({
 
       -- Document existing key chains
       wk.add {
-        { "<leader>?", function() require("which-key").show({ global = false }) end, desc = "Buffer Local Keymaps (which-key)" },
+        {
+          '<leader>?',
+          function()
+            require('which-key').show { global = false }
+          end,
+          desc = 'Buffer Local Keymaps (which-key)',
+        },
         { '<leader>c', group = '[C]ode' },
         -- { "<leader>c_", hidden = true },
         { '<leader>d', group = '[D]ocument' },
@@ -448,7 +454,7 @@ require('lazy').setup({
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
-    { -- Autoformat
+  { -- Autoformat
     'stevearc/conform.nvim',
     config = function()
       ---@diagnostic disable-next-line: inject-field
@@ -638,7 +644,7 @@ require('lazy').setup({
     -- configuration language (as in yaml or  xml)
     'imsnif/kdl.vim',
   },
-    -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
+  -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
 
