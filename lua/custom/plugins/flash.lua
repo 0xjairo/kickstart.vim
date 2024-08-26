@@ -5,7 +5,7 @@ return {
   config = function()
     local flash = require("flash");
     flash.setup({})
-    flash.toggle(false)
+    flash.toggle()
   end,
   -- stylua: ignore
   keys = {
