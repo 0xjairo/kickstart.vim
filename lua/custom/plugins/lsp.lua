@@ -6,7 +6,6 @@ return { -- LSP Configuration & Plugins
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
-    'bash-lsp/bash-language-server',
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -137,21 +136,9 @@ return { -- LSP Configuration & Plugins
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
       -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
-      clangd = {}, -- c/c++
-
-      --
-      -- Some languages (like typescript) have entire language plugins that can be useful:
-      --    https://github.com/pmizio/typescript-tools.nvim
-      biome = {}, -- javascript
-      tsserver = {}, -- javascript/typescript/react
-
-      -- gopls = {},
-
-      ruff_lsp = {}, -- Python
-      pyright = {}, -- Python
-      rust_analyzer = {}, -- rust
       bashls = {}, -- bash
-
+      biome = {}, -- javascript
+      clangd = {}, -- c/c++
       lua_ls = {
         -- cmd = {...},
         -- filetypes = { ...},
@@ -169,18 +156,14 @@ return { -- LSP Configuration & Plugins
           },
         },
       },
+      pyright = {}, -- Python
+      ruff_lsp = {}, -- Python
+      rust_analyzer = {}, -- rust
+      tsserver = {}, -- javascript/typescript/react
     }
 
-    -- Ensure the servers and tools above are installed
-    --  To check the current status of installed tools and/or manually install
-    --  other tools, you can run
-    --    :Mason
-    --
-    --  You can press `g?` for help in this menu.
     require('mason').setup()
 
-    -- You can add other tools here that you want Mason to install
-    -- for you, so that they are available from within Neovim.
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
