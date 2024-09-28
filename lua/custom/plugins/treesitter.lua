@@ -8,7 +8,7 @@ return { -- Highlight, edit, and navigate code
     'nushell/tree-sitter-nu',
   },
   opts = {
-    ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+    ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
     -- Autoinstall languages that are not installed
     auto_install = true,
     highlight = {
@@ -27,7 +27,7 @@ return { -- Highlight, edit, and navigate code
     require('nvim-treesitter.configs').setup(opts)
 
     require('treesitter-context').setup {
-      max_lines = 2,
+      max_lines = 4,
     }
 
     -- There are additional nvim-treesitter modules that you can use to interact
