@@ -1,7 +1,7 @@
 return {
   -- Set lualine as statusline
   'nvim-lualine/lualine.nvim',
-  event = "VeryLazy",
+  event = 'VeryLazy',
   -- See `:help lualine.txt`
   opts = {
     options = {
@@ -10,8 +10,15 @@ return {
     },
     sections = {
       lualine_c = {
-        'filename',
-        { 'navic', color_correction = nil, navic_opts = nil },
+        {
+          'filename',
+          path = 1, -- 4: Filename and parent dir, with tilde as the home directory
+        },
+        {
+          'navic',
+          color_correction = nil,
+          navic_opts = nil,
+        },
       },
     },
   },
