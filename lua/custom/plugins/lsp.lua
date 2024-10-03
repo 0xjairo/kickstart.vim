@@ -6,6 +6,7 @@ return { -- LSP Configuration & Plugins
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
+    'b0o/schemastore.nvim', -- for jsonls schemas
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -139,6 +140,14 @@ return { -- LSP Configuration & Plugins
       bashls = {}, -- bash
       biome = {}, -- javascript
       clangd = {}, -- c/c++
+      jsonls = {
+        settings = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      },
       lua_ls = {
         -- cmd = {...},
         -- filetypes = { ...},
