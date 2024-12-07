@@ -48,9 +48,7 @@ end
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
--- Set to true if you have a Nerd Font installed
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = true -- Set to true if you have a Nerd Font installed
 
 vim.opt.number = true -- Make line numbers default
 vim.opt.mouse = 'a' -- Enable mouse mode, can be useful for resizing splits for example!
@@ -62,10 +60,13 @@ vim.opt.ignorecase = true -- Case-insensitive searching UNLESS \C or one or more
 vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes' -- Keep signcolumn on by default
 vim.opt.updatetime = 250 -- Decrease update time
-
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 300 -- Decrease mapped sequence wait time. Displays which-key popup sooner
+vim.opt.inccommand = 'split' -- Preview substitutions live, as you type!
+vim.opt.cursorline = false -- Show which line your cursor is on
+vim.opt.termguicolors = true -- NOTE: You should make sure your terminal supports this
+vim.opt.exrc = true
+vim.opt.scrolloff = 3 -- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.hlsearch = true -- Set highlight on search, but clear on pressing <Esc> in normal mode
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -75,21 +76,11 @@ vim.opt.splitbelow = false
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-vim.opt.inccommand = 'split' -- Preview substitutions live, as you type!
-vim.opt.cursorline = false -- Show which line your cursor is on
-
 -- ts=2 sts=2 sw=2 et
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
-
--- NOTE: You should make sure your terminal supports this
-vim.opt.termguicolors = true
-vim.opt.exrc = true
-vim.opt.scrolloff = 3 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.hlsearch = true -- Set highlight on search, but clear on pressing <Esc> in normal mode
-
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
@@ -176,26 +167,13 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  -- Use `opts = {}` to force a plugin to be loaded.
-  -- See `:help gitsigns` to understand what the configuration keys do
-
-  -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
-  --
-  -- This is often very useful to both group configuration, as well as handle
-  -- lazy loading plugins that don't need to be loaded immediately at startup.
-  --
-  -- For example, in the following configuration, we use:
-  --  event = 'VimEnter'
-  --
-  -- which loads which-key before all the UI elements are loaded. Events can be
-  -- normal autocommands events (`:help autocmd-events`).
-  --
-  -- Then, because we use the `config` key, the configuration only runs
-  -- after the plugin has been loaded:
-  --  config = function() ... end
-
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true } },
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = { signs = true },
+  },
 
   -- configuration language (as in yaml or  xml)
   { 'imsnif/kdl.vim' },
