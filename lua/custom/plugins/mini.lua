@@ -18,6 +18,8 @@ return { -- Collection of various small independent plugins/modules
 
     require('mini.operators').setup()
 
+    require('mini.statusline').setup()
+
     --  Check out: https://github.com/echasnovski/mini.nvim
   end,
 }

@@ -178,11 +178,22 @@ require('lazy').setup({
   -- configuration language (as in yaml or  xml)
   { 'imsnif/kdl.vim' },
 
-  require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
-  require 'kickstart.plugins.lint',
-
-  { import = 'custom.plugins' },
+  -- { import = 'custom.plugins' },
+  require 'custom.plugins.colorscheme',
+  require 'custom.plugins.conform',
+  require 'custom.plugins.diffview',
+  require 'custom.plugins.flash',
+  require 'custom.plugins.flatten',
+  require 'custom.plugins.fzf',
+  require 'custom.plugins.gitsigns',
+  require 'custom.plugins.lsp',
+  require 'custom.plugins.mini',
+  require 'custom.plugins.neogit',
+  require 'custom.plugins.nvim-cmp',
+  require 'custom.plugins.snacks',
+  require 'custom.plugins.terminal',
+  require 'custom.plugins.treesitter',
+  require 'custom.plugins.whichkey',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
