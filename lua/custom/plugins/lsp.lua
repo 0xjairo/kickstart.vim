@@ -7,6 +7,7 @@ return { -- LSP Configuration & Plugins
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     'b0o/schemastore.nvim', -- for jsonls schemas
+    'saghen/blink.cmp',
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -61,7 +62,9 @@ return { -- LSP Configuration & Plugins
         -- Jump to the definition of the word under your cursor.
         --  This is where a variable was first declared, or where a function is defined, etc.
         --  To jump back, press <C-t>.
-        map('gd', function() require('fzf-lua').lsp_definitions({ jump_to_single_result = true }) end, '[G]oto [D]efinition')
+        map('gd', function()
+          require('fzf-lua').lsp_definitions { jump_to_single_result = true }
+        end, '[G]oto [D]efinition')
 
         -- Find references for the word under your cursor.
         map('gr', require('fzf-lua').lsp_references, '[G]oto [R]eferences')
@@ -73,7 +76,9 @@ return { -- LSP Configuration & Plugins
         -- Jump to the type of the word under your cursor.
         --  Useful when you're not sure what type a variable is and you want to see
         --  the definition of its *type*, not where it was *defined*.
-        map('<leader>D', function() require('fzf-lua').lsp_typedefs({ jump_to_single_result = true }) end, 'Type [D]efinition')
+        map('<leader>D', function()
+          require('fzf-lua').lsp_typedefs { jump_to_single_result = true }
+        end, 'Type [D]efinition')
 
         -- Fuzzy find all the symbols in your current document.
         --  Symbols are things like variables, functions, types, etc.
@@ -119,22 +124,6 @@ return { -- LSP Configuration & Plugins
       end,
     })
 
-    -- LSP servers and clients are able to communicate to each other what features they support.
-    --  By default, Neovim doesn't support everything that is in the LSP specification.
-    --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-    --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
-    -- Enable the following language servers
-    --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-    --
-    --  Add any additional override configuration in the following tables. Available keys are:
-    --  - cmd (table): Override the default command used to start the server
-    --  - filetypes (table): Override the default list of associated filetypes for the server
-    --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-    --  - settings (table): Override the default settings passed when initializing the server.
-    --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
       -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
       bashls = {}, -- bash
@@ -149,9 +138,6 @@ return { -- LSP Configuration & Plugins
         },
       },
       lua_ls = {
-        -- cmd = {...},
-        -- filetypes = { ...},
-        -- capabilities = {},
         settings = {
           Lua = {
             completion = {
@@ -181,10 +167,7 @@ return { -- LSP Configuration & Plugins
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
-          -- This handles overriding only values explicitly passed
-          -- by the server configuration above. Useful when disabling
-          -- certain features of an LSP (for example, turning off formatting for tsserver)
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+          server.capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
           require('lspconfig')[server_name].setup(server)
         end,
       },
