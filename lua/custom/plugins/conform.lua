@@ -49,6 +49,6 @@ return { -- Autoformat
       desc = 'Toggle global formatting setting',
     })
 
-    vim.keymap.set('n', '<leader>f', '<cmd>:FormatToggle<cr>', { desc = 'Toggle format' })
+    vim.keymap.set('n', '<leader>F', '<cmd>:FormatToggle<cr>', { desc = 'Toggle format' })
   end,
 }
