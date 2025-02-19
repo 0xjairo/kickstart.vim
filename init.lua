@@ -173,6 +173,10 @@ require('lazy').setup({
     event = 'VimEnter',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = true },
+    keys = {
+      { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
+      { "<leader>sT", function () Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+    },
   },
 
   -- configuration language (as in yaml or  xml)
@@ -189,7 +193,6 @@ require('lazy').setup({
   require 'custom.plugins.lsp',
   require 'custom.plugins.mini',
   require 'custom.plugins.snacks',
-  require 'custom.plugins.fzf',
   require 'custom.plugins.terminal',
   require 'custom.plugins.treesitter',
   require 'custom.plugins.whichkey',

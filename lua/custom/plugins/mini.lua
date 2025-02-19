@@ -16,7 +16,14 @@ return { -- Collection of various small independent plugins/modules
     -- - sr)'  - [S]urround [R]eplace [)] [']
     require('mini.surround').setup()
 
-    require('mini.operators').setup()
+    require('mini.operators').setup {
+      exchange = {
+        prefix = 'gX',
+      },
+      replace = {
+        prefix = 'gR',
+      },
+    }
 
     require('mini.statusline').setup()
 
