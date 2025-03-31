@@ -192,6 +192,7 @@ require('lazy').setup({
   require 'custom.plugins.gitsigns',
   require 'custom.plugins.lsp',
   require 'custom.plugins.mini',
+  require 'custom.plugins.neogit',
   require 'custom.plugins.snacks',
   require 'custom.plugins.terminal',
   require 'custom.plugins.treesitter',
