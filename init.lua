@@ -85,18 +85,18 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', ']e', function()
-  vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+  vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR, float = true }
 end, { desc = 'Go to next error' })
 vim.keymap.set('n', '[e', function()
-  vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+  vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR, float = true }
 end, { desc = 'Go to previous error' })
 vim.keymap.set('n', ']w', function()
-  vim.diagnostic.goto_next { severity = vim.diagnostic.severity.WARN }
+  vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.WARN, float = true }
 end, { desc = 'Go to next warning' })
 vim.keymap.set('n', '[w', function()
-  vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.WARN }
+  vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.WARN, float = true }
 end, { desc = 'Go to previous warning' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>d', function() vim.diagnostic.open_float({source='if_many'}) end, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics location-list' })
 
 -- navigate quickfix and location list
@@ -174,8 +174,20 @@ require('lazy').setup({
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = true },
     keys = {
-      { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
-      { "<leader>sT", function () Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+      {
+        '<leader>st',
+        function()
+          Snacks.picker.todo_comments()
+        end,
+        desc = 'Todo',
+      },
+      {
+        '<leader>sT',
+        function()
+          Snacks.picker.todo_comments { keywords = { 'TODO', 'FIX', 'FIXME' } }
+        end,
+        desc = 'Todo/Fix/Fixme',
+      },
     },
   },
 
