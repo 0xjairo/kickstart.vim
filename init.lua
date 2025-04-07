@@ -191,6 +191,7 @@ require('lazy').setup({
   require 'custom.plugins.flatten',
   require 'custom.plugins.gitsigns',
   require 'custom.plugins.lsp',
+  require 'custom.plugins.lualine',
   require 'custom.plugins.mini',
   require 'custom.plugins.neogit',
   require 'custom.plugins.snacks',
