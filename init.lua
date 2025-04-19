@@ -196,6 +196,7 @@ require('lazy').setup({
 
   -- { import = 'custom.plugins' },
   require 'custom.plugins.blink',
+  require 'custom.plugins.cmake',
   require 'custom.plugins.colorscheme',
   require 'custom.plugins.conform',
   require 'custom.plugins.diffview',

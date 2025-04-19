@@ -10,12 +10,8 @@ return { -- LSP Configuration & Plugins
     'saghen/blink.cmp',
 
     -- Useful status updates for LSP.
-    -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     { 'j-hui/fidget.nvim', opts = {} },
-
-    -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
-    { 'folke/neodev.nvim', opts = {} },
+    { 'folke/lazydev.nvim', opts = {} },
   },
   config = function()
     --  This function gets run when an LSP attaches to a particular buffer.
@@ -73,6 +69,7 @@ return { -- LSP Configuration & Plugins
     local servers = {
       -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
       bashls = {}, -- bash
+      neocmake = {},
       biome = {}, -- javascript
       clangd = {}, -- c/c++
       jsonls = {

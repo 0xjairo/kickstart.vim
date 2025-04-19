@@ -8,7 +8,7 @@ return { -- Highlight, edit, and navigate code
     'nushell/tree-sitter-nu',
   },
   opts = {
-    ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
+    ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python', 'cmake' },
     -- Autoinstall languages that are not installed
     auto_install = true,
     highlight = {
