@@ -198,6 +198,7 @@ require('lazy').setup({
 
   -- { import = 'custom.plugins' },
   require 'custom.plugins.blink',
+  require 'custom.plugins.codecompanion',
   require 'custom.plugins.colorscheme',
   require 'custom.plugins.conform',
   require 'custom.plugins.diffview',
@@ -206,6 +207,7 @@ require('lazy').setup({
   require 'custom.plugins.gitsigns',
   require 'custom.plugins.lsp',
   require 'custom.plugins.lualine',
+  require 'custom.plugins.mcphub',
   require 'custom.plugins.mini',
   require 'custom.plugins.neogit',
   require 'custom.plugins.snacks',
