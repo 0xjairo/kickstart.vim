@@ -18,7 +18,7 @@ return { -- Highlight, edit, and navigate code
       --  the list of additional_vim_regex_highlighting and disabled languages for indent.
       additional_vim_regex_highlighting = {},
     },
-    indent = { enable = true, disable = { 'python' } },
+    indent = { enable = true, disable = { 'python', 'yaml' } },
   },
   config = function(_, opts)
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
