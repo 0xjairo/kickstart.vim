@@ -10,7 +10,7 @@ return {
     },
     config = true,
     keys = {
-      { '<leader>GG', ':Neogit<CR>', desc = 'Lazygit', },
+      { '<leader>GG', ':Neogit cwd=%:p:h<CR>', desc = 'Lazygit', },
     }
   },
 }
