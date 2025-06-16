@@ -96,7 +96,9 @@ end, { desc = 'Go to next warning' })
 vim.keymap.set('n', '[w', function()
   vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.WARN, float = true }
 end, { desc = 'Go to previous warning' })
-vim.keymap.set('n', '<leader>d', function() vim.diagnostic.open_float({source='if_many'}) end, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>d', function()
+  vim.diagnostic.open_float { source = 'if_many' }
+end, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics location-list' })
 
 -- navigate quickfix and location list
