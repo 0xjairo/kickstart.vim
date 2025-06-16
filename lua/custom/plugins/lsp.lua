@@ -3,8 +3,9 @@ return { -- LSP Configuration & Plugins
   event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
   dependencies = {
     -- Automatically install LSPs and related tools to stdpath for Neovim
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason.nvim',
+    'mason-org/mason-lspconfig.nvim',
+    'neovim/nvim-lspconfig',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     'b0o/schemastore.nvim', -- for jsonls schemas
     'saghen/blink.cmp',
