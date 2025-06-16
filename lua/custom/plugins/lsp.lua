@@ -74,6 +74,7 @@ return { -- LSP Configuration & Plugins
       -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
       bashls = {}, -- bash
       biome = {}, -- javascript
+      cmake = {},
       clangd = {}, -- c/c++
       jsonls = {
         settings = {
@@ -106,7 +107,6 @@ return { -- LSP Configuration & Plugins
       }, -- Python
       ruff = {}, -- Python
       rust_analyzer = {}, -- rust
-      stylua = {},
       ts_ls = {}, -- javascript/typescript/react
       yamlls = {
         capabilities = {
