@@ -97,7 +97,13 @@ return { -- LSP Configuration & Plugins
           },
         },
       },
-      pyright = {}, -- Python
+      basedpyright = {
+        settings = {
+          analysis = {
+            typeCheckingMode = 'off',
+          },
+        },
+      }, -- Python
       ruff = {}, -- Python
       rust_analyzer = {}, -- rust
       stylua = {},
