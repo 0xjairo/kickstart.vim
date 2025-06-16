@@ -207,6 +207,7 @@ require('lazy').setup({
   require 'custom.plugins.gitsigns',
   require 'custom.plugins.lsp',
   require 'custom.plugins.lualine',
+  require 'custom.plugins.markdown',
   require 'custom.plugins.mcphub',
   require 'custom.plugins.mini',
   require 'custom.plugins.neogit',
