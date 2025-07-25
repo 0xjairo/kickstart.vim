@@ -83,6 +83,8 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+vim.diagnostic.config({ virtual_text = true, virtual_lines = true })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', ']e', function()
   vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR, float = true }
