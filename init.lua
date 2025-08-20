@@ -204,6 +204,7 @@ require('lazy').setup({
   require 'custom.plugins.diffview',
   require 'custom.plugins.flash',
   require 'custom.plugins.flatten',
+  require 'custom.plugins.fzf-lua',
   require 'custom.plugins.gitsigns',
   require 'custom.plugins.lsp',
   require 'custom.plugins.lualine',
