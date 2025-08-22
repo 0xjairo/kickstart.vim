@@ -83,7 +83,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.diagnostic.config({ virtual_text = true, virtual_lines = true })
+vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', ']e', function()
@@ -112,6 +112,23 @@ vim.keymap.set('n', '<leader>~', '<cmd>cd %:h<cr>', { desc = 'Change working dir
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 vim.keymap.set('n', '<leader><tab>', '<cmd>b#<CR>', { desc = 'Previous buffer' })
+
+-- custom toggles
+vim.keymap.set('n', '<leader>uv', function()
+  if vim.diagnostic.config().virtual_lines then
+    vim.diagnostic.config({virtual_lines = false })
+  else
+    vim.diagnostic.config({virtual_lines = true })
+  end
+end, { desc = 'Toggle virtual lines' })
+
+vim.keymap.set('n', '<leader>uV', function()
+  if vim.diagnostic.config().virtual_text then
+    vim.diagnostic.config({virtual_text = false })
+  else
+    vim.diagnostic.config({virtual_text = true })
+  end
+end, { desc = 'Toggle virtual text' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
