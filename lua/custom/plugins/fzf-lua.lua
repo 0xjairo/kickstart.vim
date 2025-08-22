@@ -4,15 +4,16 @@ return {
   opts = {},
   keys = {
       -- files
-      { "<leader>ff", function() require('fzf-lua').files({ resume = true }) end, desc = "Find Files" },
-      { "<leader>fg", function() require('fzf-lua').git_files() end, desc = "Find Git Files" },
+      { "<leader>ff", function() require('fzf-lua').files() end, desc = "Find Files" },
+      { "<leader>fr", function() require('fzf-lua').oldfiles() end, desc = "Old (recent) Files" },
+      { "<leader>fg", function() require('fzf-lua').git_files({ cwd=vim.fn.expand('%:h:p')  }) end, desc = "Find Git Files" },
       { "<leader>,", function() require('fzf-lua').buffers() end, desc = "Buffers" },
       { "<leader>fc", function() require('fzf-lua').files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 
       -- grep
-      { "<leader>/", function() require('fzf-lua').live_grep({ resume=true} ) end, desc = "Grep" },
-      { "<leader>gw", function() require('fzf-lua').grep_cword() end, desc = "Visual selection or word", mode = { "n" } },
-      { "<leader>gw", function() require('fzf-lua').grep_visual() end, desc = "Visual selection or word", mode = { "x" } },
+      { "<leader>/", function() require('fzf-lua').live_grep() end, desc = "Grep" },
+      { "<leader>sw", function() require('fzf-lua').grep_cword() end, desc = "Visual selection or word", mode = { "n" } },
+      { "<leader>sw", function() require('fzf-lua').grep_visual() end, desc = "Visual selection or word", mode = { "x" } },
 
       -- diagnostics
       { "<leader>sd", function() require('fzf-lua').diagnostics_document() end, desc = "Diagnostics" },
