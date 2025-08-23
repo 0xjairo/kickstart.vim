@@ -1,7 +1,11 @@
 return {
   "ibhagwan/fzf-lua",
   dependencies = { "echasnovski/mini.icons" },
-  opts = {},
+  opts = {
+    winopts = {
+      preview = { flip_columns = 200, },
+    }
+  },
   keys = {
       -- files
       { "<leader>ff", function() require('fzf-lua').files() end, desc = "Find Files" },
