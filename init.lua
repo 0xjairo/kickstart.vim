@@ -1,7 +1,10 @@
 if vim.g.neovide then
-  vim.o.guifont = 'FiraCode NF:h9' -- text below applies for VimScript
+  vim.o.guifont = 'FiraMono Nerd Font,MonaspiceAR NF:h9'
+  vim.g.neovide_scale_factor = 1.0 -- useful for presentations
   vim.g.neovide_cursor_animation_length = 0.05
   vim.g.neovide_cursor_trail_size = 0.1
+  vim.g.neovide_theme = 'auto'
+  vim.g.neovide_hide_mouse_when_typing = true
 end
 
 if vim.fn.has 'win32' == 1 then
@@ -68,6 +71,8 @@ vim.opt.exrc = true
 vim.opt.scrolloff = 3 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.hlsearch = true -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.winborder = 'rounded'
+vim.opt.spell = true -- `z=` to show suggetsions, `zg` to add current word to dictionary
+vim.opt.spelllang = "en_us"
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
