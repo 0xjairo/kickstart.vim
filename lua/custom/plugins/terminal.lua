@@ -13,7 +13,7 @@ return {
         end
       end,
       open_mapping = [[<c-\>]],
-      direction = "horizontal",
+      direction = "float",
       hide_numbers = true,
       insert_mappings = false,
       terminal_mappings = true,
