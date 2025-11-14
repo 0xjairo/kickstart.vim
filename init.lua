@@ -78,6 +78,8 @@ vim.opt.spelllang = "en_us"
 vim.opt.splitright = true
 vim.opt.splitbelow = false
 
+vim.opt.laststatus = 3
+
 -- Sets how neovim will display certain whitespace characters in the editor.
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
@@ -220,6 +222,7 @@ require('lazy').setup({
   { 'imsnif/kdl.vim' },
 
   -- { import = 'custom.plugins' },
+  require 'custom.plugins.avante',
   require 'custom.plugins.blink',
   require 'custom.plugins.cmake',
   require 'custom.plugins.colorscheme',
