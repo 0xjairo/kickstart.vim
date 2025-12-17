@@ -202,14 +202,7 @@ require('lazy').setup({
       {
         '<leader>st',
         function()
-          Snacks.picker.todo_comments()
-        end,
-        desc = 'Todo',
-      },
-      {
-        '<leader>sT',
-        function()
-          Snacks.picker.todo_comments { keywords = { 'TODO', 'FIX', 'FIXME' } }
+          Snacks.picker.todo_comments { keywords = { 'PERF', 'INFO', 'TODO', 'FIX', 'FIXME', 'XXX', 'BUG' } }
         end,
         desc = 'Todo/Fix/Fixme',
       },
