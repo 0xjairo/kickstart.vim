@@ -1,10 +1,13 @@
 if vim.g.neovide then
-  vim.o.guifont = 'FiraMono Nerd Font,MonaspiceAR NF:h9'
-  vim.g.neovide_scale_factor = 1.0 -- useful for presentations
+  -- font is specified in $APPDATA\neovide\config.toml
+  -- see https://neovide.dev/config-file.html
+
+  -- vim.g.neovide_scale_factor = 1.0 -- useful for presentations
   vim.g.neovide_cursor_animation_length = 0.05
   vim.g.neovide_cursor_trail_size = 0.1
   vim.g.neovide_theme = 'auto'
-  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_opacity = 0.94
+  -- vim.g.neovide_hide_mouse_when_typing = true
 end
 
 if vim.fn.has 'win32' == 1 then
