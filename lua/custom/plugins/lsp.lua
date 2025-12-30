@@ -42,6 +42,9 @@ return { -- LSP Configuration & Plugins
         --  See `:help K` for why this keymap.
         map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
+        map('<M-k>', vim.lsp.buf.signature_help, "Show signature help")
+        -- vim.keymap.set({ "n", "i", "s" }, "<M-s>", vim.lsp.buf.signature_help, { desc = "Show signature help" })
+
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         --  For example, in C this would take you to the header.
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
