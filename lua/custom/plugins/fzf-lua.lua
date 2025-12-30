@@ -15,7 +15,7 @@ return {
       { "<leader>fc", function() require('fzf-lua').files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
 
       -- grep
-      { "<leader>/", function() require('fzf-lua').live_grep() end, desc = "Grep" },
+      { "<leader>/", function() require('fzf-lua').live_grep() end, desc = "Live Grep" },
       { "<leader>sw", function() require('fzf-lua').grep_cword() end, desc = "Visual selection or word", mode = { "n" } },
       { "<leader>sw", function() require('fzf-lua').grep_visual() end, desc = "Visual selection or word", mode = { "x" } },
 
