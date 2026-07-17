@@ -288,4 +288,15 @@ require('lazy').setup({
   },
 })
 
+-- Trigger checktime to reload a file when switching back to a buffer or regaining focus
+-- i.e. When closing a ToggleTerm terminal
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "TermClose", "TermLeave" }, {
+    group = vim.api.nvim_create_augroup("ReloadOnTermClose", { clear = true }),
+    callback = function()
+        if vim.o.buftype ~= 'terminal' then
+            vim.cmd('checktime')
+        end
+    end,
+})
+
 -- vim: ts=2 sts=2 sw=2 et
