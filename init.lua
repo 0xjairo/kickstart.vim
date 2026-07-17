@@ -8,7 +8,33 @@ if vim.g.neovide then
   vim.g.neovide_theme = 'auto'
   vim.g.neovide_opacity = 0.94
   -- vim.g.neovide_hide_mouse_when_typing = true
+
+  vim.cmd("cd " .. vim.env.USERPROFILE)
 end
+
+    require('vim._core.ui2').enable({
+      enable = true, -- Whether to enable or disable the UI.
+      msg = { -- Options related to the message module.
+        ---@type 'cmd'|'msg' Default message target, either in the
+        ---cmdline or in a separate ephemeral message window.
+        ---@type string|table<string, 'cmd'|'msg'|'pager'> Default message target
+        ---or table mapping |ui-messages| kinds and triggers to a target.
+        targets = 'cmd',
+        cmd = { -- Options related to messages in the cmdline window.
+          height = 0.5 -- Maximum height while expanded for messages beyond 'cmdheight'.
+        },
+        dialog = { -- Options related to dialog window.
+          height = 0.5, -- Maximum height.
+        },
+        msg = { -- Options related to msg window.
+          height = 0.5, -- Maximum height.
+          timeout = 4000, -- Time a message is visible in the message window.
+        },
+        pager = { -- Options related to message window.
+          height = 1, -- Maximum height.
+        },
+      },
+    })
 
 if vim.fn.has 'win32' == 1 then
   --
@@ -234,6 +260,19 @@ local function custom_plugins()
         end,
       },
     }
+    -- cs = {
+    -- 'folke/tokyonight.nvim',
+    -- priority = 1000, -- Make sure to load this before all the other start plugins.
+    -- config = {
+    --   transparent = true,
+    --  },
+    --  init = function()
+    --   -- Load the colorscheme here.
+    --   -- Like many other themes, this one has different styles, and you could load
+    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+    --   vim.cmd.colorscheme 'tokyonight-night'
+    --   end
+    -- }
   else
     cs = require 'custom.plugins.colorscheme'
   end

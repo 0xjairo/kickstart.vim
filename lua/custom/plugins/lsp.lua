@@ -98,6 +98,13 @@ return { -- LSP Configuration & Plugins
         },
       },
       pyright = {}, -- Python
+      tinymist = {
+        settings = {
+          formatterMode = "typstyle",
+          exportPdf = "onType",
+          semanticTokens = "disable",
+        }
+      }, -- typst
       ruff = {}, -- Python
       rust_analyzer = {}, -- rust
       stylua = {},
