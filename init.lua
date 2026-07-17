@@ -192,6 +192,56 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+local function custom_plugins()
+  local cp = {
+  require 'custom.plugins.blink',
+  require 'custom.plugins.cmake',
+  require 'custom.plugins.conform',
+  require 'custom.plugins.diffview',
+  require 'custom.plugins.flash',
+  require 'custom.plugins.flatten',
+  require 'custom.plugins.fzf-lua',
+  require 'custom.plugins.gitsigns',
+  require 'custom.plugins.lsp',
+  require 'custom.plugins.lualine',
+  require 'custom.plugins.mini',
+  require 'custom.plugins.neogit',
+  require 'custom.plugins.snacks',
+  require 'custom.plugins.terminal',
+  require 'custom.plugins.treesitter',
+  require 'custom.plugins.whichkey',
+  }
+  local cs;
+
+  if vim.g.neovide then
+    -- TODO: Use a custom neovide theme to differentiate from terminal nvim
+    cs = {
+      {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000,
+        opts = {
+          flavour = 'mocha',
+          styles = {
+            comments = { },
+          }
+        },
+        init = function()
+          vim.cmd.colorscheme 'catppuccin-frappe'
+
+          -- You can configure highlights by doing something like:
+          -- vim.cmd.hi 'Comment gui=none'
+        end,
+      },
+    }
+  else
+    cs = require 'custom.plugins.colorscheme'
+  end
+
+  table.insert(cp, cs)
+  return cp
+end
+
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -215,24 +265,7 @@ require('lazy').setup({
   -- configuration language (as in yaml or  xml)
   { 'imsnif/kdl.vim' },
 
-  -- { import = 'custom.plugins' },
-  require 'custom.plugins.blink',
-  require 'custom.plugins.cmake',
-  require 'custom.plugins.colorscheme',
-  require 'custom.plugins.conform',
-  require 'custom.plugins.diffview',
-  require 'custom.plugins.flash',
-  require 'custom.plugins.flatten',
-  require 'custom.plugins.fzf-lua',
-  require 'custom.plugins.gitsigns',
-  require 'custom.plugins.lsp',
-  require 'custom.plugins.lualine',
-  require 'custom.plugins.mini',
-  require 'custom.plugins.neogit',
-  require 'custom.plugins.snacks',
-  require 'custom.plugins.terminal',
-  require 'custom.plugins.treesitter',
-  require 'custom.plugins.whichkey',
+  custom_plugins()
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
