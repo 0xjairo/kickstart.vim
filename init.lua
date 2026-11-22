@@ -227,7 +227,6 @@ local function custom_plugins()
   require 'custom.plugins.flatten',
   require 'custom.plugins.fzf-lua',
   require 'custom.plugins.gitsigns',
-  require 'custom.plugins.lsp',
   require 'custom.plugins.lualine',
   require 'custom.plugins.mini',
   require 'custom.plugins.neogit',
@@ -281,30 +280,16 @@ local function custom_plugins()
 end
 
 require('lazy').setup({
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-
-  -- Highlight todo, notes, etc in comments
-  {
-    'folke/todo-comments.nvim',
-    event = 'VimEnter',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = { signs = true },
-    keys = {
-      {
-        '<leader>st',
-        function()
-          Snacks.picker.todo_comments { keywords = { 'PERF', 'INFO', 'TODO', 'FIX', 'FIXME', 'XXX', 'BUG' } }
-        end,
-        desc = 'Todo/Fix/Fixme',
-      },
-    },
-  },
-
-  -- configuration language (as in yaml or  xml)
-  { 'imsnif/kdl.vim' },
-
   custom_plugins()
 }, {
+  performance = {
+    -- keep the default runtimepath/packpath entries so that plugins
+    -- installed with vim.pack (Neovim 0.13+) can still be loaded
+    reset_packpath = false,
+    rtp = {
+      reset = false,
+    },
+  },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
@@ -325,6 +310,12 @@ require('lazy').setup({
     },
   },
 })
+
+-- LSP is set up with vim.pack (Neovim 0.13+) instead of lazy.nvim.
+-- Must be required after lazy.setup so that blink.cmp (managed by lazy) is
+-- loaded and its capabilities are available.
+require 'custom.plugins.lsp'
+require 'custom.plugins.pack' -- vim-sleuth, kdl.vim, todo-comments (vim.pack)
 
 -- Trigger checktime to reload a file when switching back to a buffer or regaining focus
 -- i.e. When closing a ToggleTerm terminal
