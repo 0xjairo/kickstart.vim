@@ -85,7 +85,6 @@ vim.g.have_nerd_font = true -- Set to true if you have a Nerd Font installed
 vim.opt.number = true -- Make line numbers default
 vim.opt.mouse = 'a' -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.showmode = false -- Don't show the mode, since it's already in the status line
-vim.opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim.
 vim.opt.breakindent = true -- Enable break indent
 vim.opt.undofile = true -- Save undo history
 vim.opt.ignorecase = true -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
@@ -337,5 +336,34 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "TermClose", "TermLeave
         end
     end,
 })
+
+-- Configure OSC 52 for the '+' and '*' registers over SSH
+if vim.env.SSH_TTY then
+  vim.opt.clipboard = ""
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+    },
+  }
+
+  -- Automatically mirror all yanks to the '+' register (OSC 52)
+  vim.api.nvim_create_autocmd('TextYankPost', {
+    group = vim.api.nvim_create_augroup('Osc52Copy', { clear = true }),
+    callback = function()
+      if vim.v.event.operator == 'y' then
+        vim.fn.setreg('+', vim.fn.getreg('"'))
+      end
+    end,
+  })
+else
+  vim.opt.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim.
+end
+
 
 -- vim: ts=2 sts=2 sw=2 et
