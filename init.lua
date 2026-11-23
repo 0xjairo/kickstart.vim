@@ -225,11 +225,11 @@ require 'custom.plugins.fzf-lua'
 require 'custom.plugins.gitsigns'
 require 'custom.plugins.lualine'
 require 'custom.plugins.mini'
-require 'custom.plugins.neogit'
 require 'custom.plugins.terminal'
 require 'custom.plugins.treesitter'
 require 'custom.plugins.whichkey'
 require 'custom.plugins.lsp'
+require 'custom.plugins.vim-fugitive'
 require 'custom.plugins.pack' -- vim-sleuth, kdl.vim, todo-comments
 
 -- Trigger checktime to reload a file when switching back to a buffer or regaining focus
