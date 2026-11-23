@@ -1,10 +1,8 @@
-return {
-  {
-    "willothy/flatten.nvim",
-    opts = {
-      window = { open = "alternate" },
-    },
-    lazy = false,
-    priority = 1001,
-  },
+-- Open files from nested terminals in the host neovim (vim.pack).
+-- Must load early (see init.lua).
+
+vim.pack.add { 'https://github.com/willothy/flatten.nvim' }
+
+require('flatten').setup {
+  window = { open = 'alternate' },
 }

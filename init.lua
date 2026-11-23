@@ -209,113 +209,28 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-end ---@diagnostic disable-next-line: undefined-field
-vim.opt.rtp:prepend(lazypath)
-
-local function custom_plugins()
-  local cp = {
-  require 'custom.plugins.blink',
-  require 'custom.plugins.cmake',
-  require 'custom.plugins.conform',
-  require 'custom.plugins.diffview',
-  require 'custom.plugins.flash',
-  require 'custom.plugins.flatten',
-  require 'custom.plugins.fzf-lua',
-  require 'custom.plugins.gitsigns',
-  require 'custom.plugins.lualine',
-  require 'custom.plugins.mini',
-  require 'custom.plugins.neogit',
-  require 'custom.plugins.snacks',
-  require 'custom.plugins.terminal',
-  require 'custom.plugins.treesitter',
-  require 'custom.plugins.whichkey',
-  }
-  local cs;
-
-  if vim.g.neovide then
-    -- TODO: Use a custom neovide theme to differentiate from terminal nvim
-    cs = {
-      {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        priority = 1000,
-        opts = {
-          flavour = 'mocha',
-          styles = {
-            comments = { },
-          }
-        },
-        init = function()
-          vim.cmd.colorscheme 'catppuccin-frappe'
-
-          -- You can configure highlights by doing something like:
-          -- vim.cmd.hi 'Comment gui=none'
-        end,
-      },
-    }
-    -- cs = {
-    -- 'folke/tokyonight.nvim',
-    -- priority = 1000, -- Make sure to load this before all the other start plugins.
-    -- config = {
-    --   transparent = true,
-    --  },
-    --  init = function()
-    --   -- Load the colorscheme here.
-    --   -- Like many other themes, this one has different styles, and you could load
-    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-    --   vim.cmd.colorscheme 'tokyonight-night'
-    --   end
-    -- }
-  else
-    cs = require 'custom.plugins.colorscheme'
-  end
-
-  table.insert(cp, cs)
-  return cp
-end
-
-require('lazy').setup({
-  custom_plugins()
-}, {
-  performance = {
-    -- keep the default runtimepath/packpath entries so that plugins
-    -- installed with vim.pack (Neovim 0.13+) can still be loaded
-    reset_packpath = false,
-    rtp = {
-      reset = false,
-    },
-  },
-  ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-    },
-  },
-})
-
--- LSP is set up with vim.pack (Neovim 0.13+) instead of lazy.nvim.
--- Must be required after lazy.setup so that blink.cmp (managed by lazy) is
--- loaded and its capabilities are available.
+-- Plugins are managed with vim.pack (Neovim 0.13+). Each module in
+-- lua/custom/plugins/ installs and configures its plugin(s) directly.
+-- Load order: flatten/snacks/colorscheme first (they need to run early),
+-- blink before lsp (LSP uses blink.cmp's capabilities).
+require 'custom.plugins.flatten'
+require 'custom.plugins.snacks'
+require 'custom.plugins.colorscheme'
+require 'custom.plugins.blink'
+require 'custom.plugins.cmake'
+require 'custom.plugins.conform'
+require 'custom.plugins.diffview'
+require 'custom.plugins.flash'
+require 'custom.plugins.fzf-lua'
+require 'custom.plugins.gitsigns'
+require 'custom.plugins.lualine'
+require 'custom.plugins.mini'
+require 'custom.plugins.neogit'
+require 'custom.plugins.terminal'
+require 'custom.plugins.treesitter'
+require 'custom.plugins.whichkey'
 require 'custom.plugins.lsp'
-require 'custom.plugins.pack' -- vim-sleuth, kdl.vim, todo-comments (vim.pack)
+require 'custom.plugins.pack' -- vim-sleuth, kdl.vim, todo-comments
 
 -- Trigger checktime to reload a file when switching back to a buffer or regaining focus
 -- i.e. When closing a ToggleTerm terminal

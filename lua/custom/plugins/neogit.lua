@@ -1,16 +1,12 @@
-return {
-  {
-    'NeogitOrg/neogit',
-    dependencies = {
-      'nvim-lua/plenary.nvim', -- required
-      'sindrets/diffview.nvim', -- optional - Diff integration
+-- Git client (vim.pack)
 
-      -- Only one of these is needed.
-      'echasnovski/mini.pick', -- optional
-    },
-    config = true,
-    keys = {
-      { '<leader>gg', ':Neogit cwd=%:p:h<CR>', desc = 'Lazygit', },
-    }
-  },
+vim.pack.add {
+  'https://github.com/NeogitOrg/neogit',
+  'https://github.com/nvim-lua/plenary.nvim', -- required
+  'https://github.com/sindrets/diffview.nvim', -- optional - Diff integration
+  -- picker: mini.pick is provided by mini.nvim (see mini.lua)
 }
+
+require('neogit').setup {}
+
+vim.keymap.set('n', '<leader>gg', ':Neogit cwd=%:p:h<CR>', { desc = 'Lazygit' })
